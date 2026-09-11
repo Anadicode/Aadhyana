@@ -10,7 +10,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Model.Batch;
 import Model.Student;
+import Model.Subject;
+import Service.BatchService;
+import Service.SubjectService;
 import Service.studentService;
 
 
@@ -42,8 +46,34 @@ public class student extends HttpServlet {
 			 rd.forward(request, response);
 		}else if(pathString.equals("/ragister")) {
 			
+			List<Batch> batches = new ArrayList<>();
+		    BatchService batch1 = new BatchService();
+		    
+		    List<Subject> subjects = new ArrayList<>();
+		    SubjectService subject1 = new SubjectService();
+		    
+		    batches = batch1.getAllBatch();
+		    subjects = subject1.getAllSubject();
+		    
+		     request.setAttribute("batches", batches);
+		     request.setAttribute("subjects", subjects);
+			
 			 RequestDispatcher rd = request.getRequestDispatcher("/studentRagistration.jsp");
 			 rd.forward(request, response);
+		}else if (pathString.equals("/edit")) {
+			//editing student details
+		    int id = Integer.parseInt(request.getParameter("id"));
+		    studentService studentService = new studentService();
+		    Student student = studentService.getStudentById(id);
+
+		    if (student == null) {
+		        response.sendRedirect(request.getContextPath() + "/student");
+		        return;
+		    }
+
+		    request.setAttribute("student", student);
+		    RequestDispatcher rd = request.getRequestDispatcher("/editStudent.jsp");
+		    rd.forward(request, response);
 		}
 		
 		
@@ -111,9 +141,9 @@ public class student extends HttpServlet {
 
 		        // Call service
 		        studentService service = new studentService();
-
+               
 		        service.addStudent(student);
-
+               
 		        // Redirect after successful insertion
 		        response.sendRedirect(request.getContextPath() + "/student");
 		  }
@@ -122,11 +152,7 @@ public class student extends HttpServlet {
 		  
 	}
 	
-	/// Student ragistration
 	
-	  private void studentRagistration(HttpServletRequest request, HttpServletResponse response) {
-		  
-	  }
 	
 	
 

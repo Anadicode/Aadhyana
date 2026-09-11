@@ -3,10 +3,12 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import Model.Batch;
+import Model.Student;
 import util.DBconnection;
 
 public class BatchDAO {
@@ -15,8 +17,8 @@ public class BatchDAO {
 	public void addBatch(Batch batch) {
 		String query = """
 				INSERT INTO BATCH
-				(B_NAME,B_START_DATE,T_ID,B_STATUS)
-				VALUES(?,?,?,?);
+				(B_ID,B_NAME,B_START_DATE,T_ID,B_STATUS)
+				VALUES(?,?,?,?,?);
 				
 				""";
 		
@@ -173,5 +175,56 @@ public class BatchDAO {
 		}catch (Exception e) {
 			System.out.println("error occure at BatchDAO while deleting:"+e);
 		}
+    }
+    
+    // get all the student associate with a Batch 
+    public List<Student> getAllStudentInaBatch(int id){
+    	List<Student> students = new ArrayList<>();
+
+        String query = """
+        		 select s.*
+             from student s
+             left join
+             BATCH b
+             ON s.B_ID = b.B_ID
+             where b.B_ID=?;
+        		""";
+
+        try {
+        	
+            Connection con = DBconnection.getDBConnection();
+             
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Student student = new Student(
+
+                        rs.getInt("ST_ID"),
+                        rs.getString("NAME"),
+                        rs.getString("PHONE"),
+                        rs.getString("ADDRESS"),
+                        rs.getInt("AGE"),
+                        rs.getString("EMAIL"),
+                        rs.getString("COLLEGE_NAME"),
+                        rs.getString("STREAM"),
+                        rs.getInt("T_ID"),
+                        rs.getInt("S_ID"),
+                        rs.getInt("B_ID")
+                );
+
+                students.add(student);
+            }
+
+        } catch (Exception e) {
+
+            System.out.println("Error: " + e);
+
+        }
+
+        return students;
     }
 }

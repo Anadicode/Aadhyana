@@ -21,4 +21,8 @@ public class studentService {
 	   studentDAO.registerStudent(student);
 	   System.out.println("done");
    }
+   
+   public Student getStudentById(int id) {
+	   return studentDAO.findStudentBYId(id);
+   }
 }

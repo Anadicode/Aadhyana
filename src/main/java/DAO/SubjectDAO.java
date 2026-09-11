@@ -6,6 +6,8 @@ import Model.Subject;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -91,30 +93,33 @@ public class SubjectDAO {
 	
 	//getting all subject
 	
-	public Subject getA_Subject(Subject subject) {
+	public List<Subject> getAllSubject() {
 		Subject subject1 = null; 
-		String queryString = "select * from subject where S_ID=?;";
+		String queryString = "select * from subject;";
+		
+		List<Subject> subjects = new ArrayList<Subject>();
 		
 		try {
 			Connection con = DBconnection.getDBConnection();
 			PreparedStatement ps = con.prepareStatement(queryString);
 			
-			ps.setInt(1, subject.getSubjectId());
+			
 			
 			ResultSet rs = ps.executeQuery();
 			
-			if(rs.next()) {
+			while(rs.next()) {
 				 subject1 = new Subject(
 						rs.getInt("S_ID"),
 						rs.getString("SUB_NAME")
 						);
+				 subjects.add(subject1);
 			}
 			
 			    rs.close();
 			    ps.close();
 			    con.close();
 			    
-			    return subject1;
+			    return subjects;
 			    
 			
 			

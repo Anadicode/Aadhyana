@@ -19,7 +19,7 @@ public class StudentDAO {
 	
 	
 	//finding student by ID
-    Student findStudentBYId(int id) {
+  public  Student findStudentBYId(int id) {
     	String query="select * from student where  ST_ID=?";
     	  
     	try {

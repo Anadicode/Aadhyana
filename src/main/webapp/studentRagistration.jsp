@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+ <%@ page import="java.util.List" %>
+ <%@ page import="Model.Batch" %>
+ <%@ page import="Model.Subject" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -129,12 +134,13 @@
             <select id="sId" name="sId" required>
 
                 <option value="">-- Select Subject --</option>
-
-                <option value="1">Java</option>
-                <option value="2">DBMS</option>
-                <option value="3">Web Development</option>
-                <option value="4">Data Structures</option>
-                <option value="5">Computer Networks</option>
+                <% 
+                 List<Subject> subjects = (List<Subject>) request.getAttribute("subjects");
+            	 for(var e:subjects){
+                %>
+                <option value="<%=e.getSubjectId() %>"><%=e.getSubjectName() %></option>
+                <%} %>
+               
 
             </select>
         </div>
@@ -161,17 +167,19 @@
         <!-- Batch -->
         <div class="form-group">
             <label for="bId">Batch</label>
-
+ 
             <select id="bId" name="bId" required>
 
                 <option value="">-- Select Batch --</option>
-
-                <option value="1">Java Batch</option>
-                <option value="2">DBMS Batch</option>
-                <option value="3">Web Development Batch</option>
-                <option value="4">Data Structures Batch</option>
-                <option value="5">Computer Networks Batch</option>
-
+                
+                <% 
+                List<Batch> batches = (List<Batch>) request.getAttribute("batches");
+                for(var e : batches){
+                %>
+                <option value="<%=e.getBId()%>"><%=e.getBName() %></option>
+                <%} %>
+                
+              
             </select>
         </div>
 
