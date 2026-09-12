@@ -146,7 +146,61 @@ public class student extends HttpServlet {
                
 		        // Redirect after successful insertion
 		        response.sendRedirect(request.getContextPath() + "/student");
-		  }
+		        
+		        
+		  }else if (pathString.equals("/edit")) {
+			  
+			
+			// Get data from form
+			  int id = Integer.parseInt(request.getParameter("id")); // or "id" — see note below
+
+			  String name = request.getParameter("name");
+
+			  String phNumber = request.getParameter("phNumber");
+
+			  String addressString = request.getParameter("addressString");
+
+			  int age = Integer.parseInt(request.getParameter("age"));
+
+			  String emailString = request.getParameter("emailString");
+
+			  String collageNameString = request.getParameter("collageNameString");
+
+			  String streamString = request.getParameter("streamString");
+
+			  int sub_id = Integer.parseInt(request.getParameter("sub_id"));
+
+			  int T_id = Integer.parseInt(request.getParameter("T_id"));
+
+			  int B_id = Integer.parseInt(request.getParameter("B_id"));
+
+
+		        // Create Student object
+		        Student student = new Student();
+
+		        student.setId(id);
+		        student.setName(name);
+		        student.setPhNumber(phNumber);
+		        student.setAddressString(addressString);
+		        student.setAge(age);
+		        student.setEmailString(emailString);
+		        student.setCollageNameString(collageNameString);
+		        student.setStreamString(streamString);
+
+		        student.setT_id(T_id);
+		        student.setSub_id(sub_id);
+		        student.setB_id(B_id);
+
+
+		        // Call service
+		        studentService service = new studentService();
+             
+		        service.ediStudent(student);
+		        
+             
+		        // Redirect after successful insertion
+		        response.sendRedirect(request.getContextPath() + "/student");
+			}
 		   
 		  
 		  

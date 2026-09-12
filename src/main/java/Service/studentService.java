@@ -25,4 +25,8 @@ public class studentService {
    public Student getStudentById(int id) {
 	   return studentDAO.findStudentBYId(id);
    }
+   
+   public void ediStudent(Student student) {
+	   studentDAO.editStudentDetails(student);
+   }
 }

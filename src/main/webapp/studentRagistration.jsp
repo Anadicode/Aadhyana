@@ -9,7 +9,123 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Student Registration</title>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f6f9;
+        margin: 0;
+        padding: 40px 20px;
+        color: #333;
+    }
+
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        background: #ffffff;
+        padding: 30px 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    form::before {
+        content: "Student Registration";
+        display: block;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 25px;
+        color: #2c3e50;
+        text-align: center;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #444;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 14px;
+        border: 1px solid #ccd1d9;
+        border-radius: 6px;
+        background-color: #fafafa;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+        outline: none;
+        border-color: #4a90e2;
+        box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+        background-color: #fff;
+    }
+
+    .form-group textarea {
+        resize: vertical;
+    }
+
+    .button-container {
+        display: flex;
+        gap: 12px;
+        margin-top: 25px;
+    }
+
+    .register-btn,
+    .reset-btn {
+        flex: 1;
+        padding: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+
+    .register-btn {
+        background-color: #4a90e2;
+        color: #fff;
+    }
+
+    .register-btn:hover {
+        background-color: #3a7bc8;
+    }
+
+    .reset-btn {
+        background-color: #e0e0e0;
+        color: #333;
+    }
+
+    .reset-btn:hover {
+        background-color: #cfcfcf;
+    }
+
+    .register-btn:active,
+    .reset-btn:active {
+        transform: scale(0.98);
+    }
+
+    @media (max-width: 480px) {
+        form {
+            padding: 20px;
+        }
+    }
+</style>
 </head>
 <body>
 

@@ -157,6 +157,24 @@
         color: #6b7280;
         font-style: italic;
     }
+    
+    .search-container {
+        margin-bottom: 20px;
+   }
+
+   .search-container input {
+       width: 300px;
+       padding: 10px 14px;
+       border: 1px solid #d1d5db;
+       border-radius: 6px;
+       font-size: 14px;
+       outline: none;
+   }
+
+   .search-container input:focus {
+    border-color: #2563eb;
+   }
+    
 </style>
 </head>
 <body>
@@ -180,6 +198,16 @@
 
 <div class="container">
     <h2>Student List</h2>
+    
+   <div class="search-container">
+      <span class="search-icon">⌕</span>
+
+      <input 
+        type="text"
+        id="studentIdSearch"
+        placeholder="Search Student by ID..."
+     >
+   </div>
 
     <%
         List<Student> students =
@@ -189,7 +217,7 @@
     <% if (students == null || students.isEmpty()) { %>
         <div class="no-students">No students found.</div>
     <% } else { %>
-        <table>
+        <table id="studentTable">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -203,7 +231,7 @@
                 <tr>
                     <td><%= e.getName() %></td>
                     <td><%= e.getAddressString() %></td>
-                    <td><%= e.getId() %></td>
+                    <td class="student-id"><%= e.getId() %></td>
                     <td class="action-cell">
                         <a class="edit-btn" href="<%= application.getContextPath() %>/student/edit?id=<%= e.getId() %>">Edit</a>
                         <form action="<%= application.getContextPath() %>/student" method="post" style="margin:0;">
@@ -217,6 +245,39 @@
         </table>
     <% } %>
 </div>
+
+<script>
+
+    const searchInput = document.getElementById("studentIdSearch");
+
+    const rows = document.querySelectorAll("#studentTable tbody tr");
+
+    searchInput.addEventListener("input", function () {
+
+        let searchValue = this.value.trim();
+
+        rows.forEach(function (row) {
+
+            let studentId = row
+                .querySelector(".student-id")
+                .textContent
+                .trim();
+
+            if (studentId === searchValue || searchValue === "") {
+
+                row.style.display = "";
+
+            } else {
+
+                row.style.display = "none";
+
+            }
+
+        });
+
+    });
+
+</script>
 
 </body>
 </html>

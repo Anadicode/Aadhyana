@@ -176,4 +176,51 @@ public class StudentDAO {
 			System.out.println("err"+e);
 		}
     }
+    
+    // editing student details
+    public  void editStudentDetails(Student student) {
+    	String queryString = """
+    			  UPDATE student
+                  SET
+                      NAME = ?,
+                      T_ID = ?,
+                      S_ID = ?,
+                      PHONE = ?,
+                      ADDRESS = ?,
+                      AGE = ?,
+                      EMAIL = ?,
+                      B_ID = ?,
+                      COLLEGE_NAME = ?,
+                      STREAM = ?
+                  WHERE ST_ID = ?;
+    			""";
+    	
+    	try {
+			Connection con = DBconnection.getDBConnection();
+			PreparedStatement ps = con.prepareStatement(queryString);
+			
+			ps.setString(1, student.getName());
+			ps.setInt(2, student.getT_id());
+			ps.setInt(3, student.getSub_id());
+			ps.setString(4, student.getPhNumber());
+			ps.setString(5, student.getAddressString());
+			ps.setInt(6, student.getAge());
+			ps.setString(7, student.getEmailString());
+			ps.setInt(8, student.getB_id());
+			ps.setString(9, student.getCollageNameString());
+			ps.setString(10, student.getStreamString());
+			ps.setInt(11, student.getId());
+			
+			int row = ps.executeUpdate();
+			
+			if(row>0) {
+				System.out.println("Student updated successfully");
+			}else {
+				System.out.println("not updated");
+			}
+
+		} catch (Exception e) {
+			System.out.println("While updating:"+e);
+		}
+    }
 }
