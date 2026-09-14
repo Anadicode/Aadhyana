@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+ <%@ page import="jakarta.servlet.http.HttpSession" %>
 
 <!DOCTYPE html>
 <html>
@@ -92,6 +94,18 @@
         <li><a href="<%= application.getContextPath() %>/batch">Batch</a></li>
         <li><a href="<%= application.getContextPath() %>/student">Student</a></li>
         <li><a href="<%= application.getContextPath() %>/about">About</a></li>
+        
+        <%
+          HttpSession currentSession = request.getSession(false);
+          if(currentSession!=null && currentSession.getAttribute("user") != null){
+        	 
+        %>
+          <li><a href="<%= application.getContextPath() %>/logout">logout</a></li>
+          
+        <%}else{ %>
+           <li><a href="<%= application.getContextPath() %>/login">login</a></li>
+        <%} %>
+        
     </ul>
 </nav>
 

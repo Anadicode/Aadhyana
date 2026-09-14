@@ -18,7 +18,7 @@ public class Logout extends HttpServlet {
 		 HttpSession session = request.getSession(false);
 		 
 		 if(session!=null) {
-			 session.invalidate();
+			 session.invalidate();  // remove the session permanently
 		 }
 		 
 		 response.sendRedirect(request.getContextPath()+"/");
