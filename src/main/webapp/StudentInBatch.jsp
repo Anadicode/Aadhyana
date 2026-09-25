@@ -152,6 +152,11 @@
 </head>
 <body>
 
+   <%
+        List<Student> students =
+             (List<Student>) request.getAttribute("students");
+    %>
+
 <nav style="display:flex">
     <div class="logo">Aadhyana</div>
 
@@ -164,15 +169,27 @@
 </nav>
 
 <div class="container">
-    <div class="page-header">
-        <h2>Students in Batch</h2>
-        <a class="back-link" href="<%= application.getContextPath() %>/batch">&larr; Back to Batches</a>
-    </div>
+    
+<div class="page-header">
 
-    <%
-        List<Student> students =
-             (List<Student>) request.getAttribute("students");
-    %>
+    <h2>Students in Batch</h2>
+    <% Student st = students.get(0); %>
+    <form method="post"
+          action="<%= application.getContextPath() %>/attendance">
+
+        <input type="hidden"
+               name="batchId"
+               value="<%= st.getB_id() %>">
+
+        <button type="submit" class="back-link">
+            &larr; Take Attendance for this Batch
+        </button>
+
+    </form>
+
+</div>
+
+
 
     <% if (students == null || students.isEmpty()) { %>
         <div class="no-students">No students found in this batch.</div>
