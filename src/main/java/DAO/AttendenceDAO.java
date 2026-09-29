@@ -9,7 +9,7 @@ import util.DBconnection;
 
 public class AttendenceDAO {
 	
-	//taking Student Attendence
+	//taking Student Attendance
     public void takeAttendence(List<Attendence> attendenceList) {
        	String queryString = """
        			  INSERT INTO ATTENDENCE(ATTENDENCE_DATE,B_ID,ST_ID,STATUS)
@@ -37,13 +37,13 @@ public class AttendenceDAO {
     }
     
     //calculating percentage of attendence of a batch
-    public double batchAttendence(int id) {
-    	
-    }
-    
-    
-    //calculating attendence of a student
-    public double studentAttendence(int id) {
-    	
-    }
+//    public double batchAttendance(int id) {
+//    	
+//    }
+//    
+//    
+//    //calculating attendence of a student
+//    public double studentAttendance(int id) {
+//    	
+//    }
 }
