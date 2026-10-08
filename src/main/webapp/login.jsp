@@ -1,19 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-
 <!DOCTYPE html>
+
 <html>
+
 <head>
+
     <meta charset="UTF-8">
+
     <title>Login</title>
 
     <style>
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Arial, sans-serif;
         }
 
         body {
@@ -21,26 +25,29 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #141e30, #243b55);
+            background-color: #f4f5f7;
+            color: #1f2937;
         }
 
         .login-container {
             width: 380px;
             padding: 35px;
-            background: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
         }
 
         .login-container h2 {
             text-align: center;
             margin-bottom: 10px;
-            color: #222;
+            color: #1f2937;
+            font-size: 24px;
+            font-weight: 700;
         }
 
         .login-container p {
             text-align: center;
-            color: #777;
+            color: #6b7280;
             margin-bottom: 30px;
             font-size: 14px;
         }
@@ -52,49 +59,51 @@
         .input-group label {
             display: block;
             margin-bottom: 8px;
-            color: #333;
-            font-weight: bold;
+            color: #374151;
+            font-weight: 600;
             font-size: 14px;
         }
 
         .input-group input {
             width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            padding: 11px 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
             font-size: 15px;
+            color: #1f2937;
+            background-color: #ffffff;
             outline: none;
-            transition: 0.3s;
+            transition: border-color 0.2s ease;
         }
 
         .input-group input:focus {
-            border-color: #243b55;
-            box-shadow: 0 0 5px rgba(36, 59, 85, 0.3);
+            border-color: #1f2937;
         }
 
         .login-btn {
             width: 100%;
-            padding: 13px;
+            padding: 11px;
             border: none;
-            border-radius: 8px;
-            background: #243b55;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
+            border-radius: 5px;
+            background-color: #1f2937;
+            color: #ffffff;
+            font-size: 15px;
+            font-weight: 600;
             cursor: pointer;
-            transition: 0.3s;
+            transition: background-color 0.2s ease;
         }
 
         .login-btn:hover {
-            background: #141e30;
+            background-color: #111827;
         }
 
         .error-message {
             margin-bottom: 15px;
             padding: 10px;
-            background: #ffe5e5;
-            color: #d8000c;
-            border-radius: 6px;
+            background-color: #fef2f2;
+            color: #b91c1c;
+            border: 1px solid #fecaca;
+            border-radius: 5px;
             text-align: center;
             font-size: 14px;
         }
@@ -103,9 +112,11 @@
             text-align: center;
             margin-top: 20px;
             font-size: 13px;
-            color: #777;
+            color: #6b7280;
         }
+
     </style>
+
 </head>
 
 <body>
@@ -113,23 +124,33 @@
     <div class="login-container">
 
         <h2>Welcome Back</h2>
+
         <p>Login to your account</p>
 
         <% 
+
             String error = (String) request.getAttribute("error");
 
             if (error != null) {
+
         %>
+
             <div class="error-message">
+
                 <%= error %>
+
             </div>
+
         <% 
+
             }
+
         %>
 
         <form action="${pageContext.request.contextPath}/login" method="post">
 
             <div class="input-group">
+
                 <label for="userId">User ID</label>
 
                 <input
@@ -138,10 +159,11 @@
                     name="userId"
                     placeholder="Enter your User ID"
                     required>
+
             </div>
 
-
             <div class="input-group">
+
                 <label for="password">Password</label>
 
                 <input
@@ -150,8 +172,8 @@
                     name="password"
                     placeholder="Enter your password"
                     required>
-            </div>
 
+            </div>
 
             <button type="submit" class="login-btn">
                 Login
@@ -160,11 +182,14 @@
         </form>
 
         <div class="footer-text">
+
             Please enter your credentials to continue.
+
         </div>
 
     </div>
 
 </body>
+
 </html>
 

@@ -1,234 +1,433 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ page import="java.util.List"%>
-<%@ page import="Model.Student"%>
+<%@ page import="java.util.List" %>
+<%@ page import="Model.Student" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
 
-<meta charset="UTF-8">
-<title>Take Attendance</title>
+    <meta charset="UTF-8">
 
-<style>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-* {
-    box-sizing: border-box;
-}
+    <title>Aadhyana - Take Attendance</title>
 
-body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    margin: 0;
-    background: linear-gradient(135deg, #f4f6f8 0%, #e8ecf1 100%);
-    color: #222;
-    min-height: 100vh;
-}
+    <style>
 
-nav {
-    background-color: #1f2937;
-    padding: 14px 30px;
-    align-items: center;
-    justify-content: space-between;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.logo {
-    color: #ffffff;
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f5f7;
+            color: #333;
+        }
 
-nav ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
 
-nav ul li a {
-    color: #d1d5db;
-    text-decoration: none;
-    font-size: 15px;
-    transition: color 0.2s ease;
-}
+        /* =========================
+           NAVBAR
+        ========================= */
 
-nav ul li a:hover {
-    color: #ffffff;
-}
+        .navbar {
+            height: 64px;
 
-.container {
-    max-width: 1000px;
-    margin: 40px auto;
-    padding: 0 20px;
-}
+            background: #1f2937;
+            color: white;
 
-.page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
-h2 {
-    margin: 0;
-    color: #1f2937;
-    font-size: 26px;
-    font-weight: 700;
-}
+            padding: 0 30px;
+        }
 
-.back-link {
-    text-decoration: none;
-    color: #2563eb;
-    font-weight: 600;
-    font-size: 14px;
-}
+        .logo {
+            font-size: 22px;
+            font-weight: 600;
+        }
 
-.back-link:hover {
-    text-decoration: underline;
-}
+        .logo span {
+            color: #9ca3af;
+        }
 
-.attendance-info {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 18px 22px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    border: 1px solid #eef0f3;
-}
+        .nav-links {
+            display: flex;
+            gap: 32px;
 
-.info-label {
-    color: #6b7280;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 6px;
-}
+            list-style: none;
+        }
 
-.date-input {
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    padding: 9px 12px;
-    font-size: 14px;
-    color: #374151;
-}
+        .nav-links a {
+            color: #d1d5db;
 
-.attendance-list {
-    background: #ffffff;
-    border-radius: 14px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    border: 1px solid #eef0f3;
-    overflow: hidden;
-}
+            text-decoration: none;
 
-.attendance-header {
-    display: grid;
-    grid-template-columns: 70px 1fr 180px;
-    padding: 15px 20px;
-    background: #f9fafb;
-    border-bottom: 1px solid #e5e7eb;
-    color: #6b7280;
-    font-size: 13px;
-    font-weight: 700;
-}
+            font-size: 14px;
 
-.student-row {
-    display: grid;
-    grid-template-columns: 70px 1fr 180px;
-    align-items: center;
-    padding: 16px 20px;
-    border-bottom: 1px solid #f1f3f5;
-    transition: background 0.2s ease;
-}
+            transition: color 0.2s;
+        }
 
-.student-row:last-child {
-    border-bottom: none;
-}
+        .nav-links a:hover {
+            color: white;
+        }
 
-.student-row:hover {
-    background: #f9fafb;
-}
 
-.student-id {
-    color: #9ca3af;
-    font-size: 13px;
-}
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
 
-.student-name {
-    color: #1f2937;
-    font-size: 15px;
-    font-weight: 600;
-}
+        .container {
+            width: 94%;
+            max-width: 1100px;
 
-.status-container {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
+            margin: 30px auto;
+        }
 
-.status-option {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 14px;
-    cursor: pointer;
-}
 
-.status-option input {
-    cursor: pointer;
-}
+        /* =========================
+           PAGE HEADER
+        ========================= */
 
-.present {
-    color: #15803d;
-}
+        .page-header {
+            display: flex;
 
-.absent {
-    color: #dc2626;
-}
+            justify-content: space-between;
+            align-items: center;
 
-.submit-section {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 25px;
-}
+            margin-bottom: 22px;
+        }
 
-.submit-btn {
-    background-color: #1f2937;
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    padding: 11px 24px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
+        .page-title h1 {
+            font-size: 25px;
 
-.submit-btn:hover {
-    background-color: #111827;
-    transform: translateY(-1px);
-}
+            font-weight: 600;
 
-.no-students {
-    padding: 40px;
-    text-align: center;
-    color: #6b7280;
-    font-style: italic;
-    background-color: #ffffff;
-    border-radius: 14px;
-}
+            color: #222;
 
-</style>
+            margin-bottom: 6px;
+        }
+
+        .page-title p {
+            font-size: 14px;
+
+            color: #777;
+        }
+
+        .back-link {
+            color: #4b5563;
+
+            text-decoration: none;
+
+            font-size: 13px;
+
+            border: 1px solid #d1d5db;
+
+            background: white;
+
+            padding: 9px 14px;
+        }
+
+        .back-link:hover {
+            background: #f8f9fa;
+        }
+
+
+        /* =========================
+           ATTENDANCE INFORMATION
+        ========================= */
+
+        .attendance-info {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            padding: 18px 20px;
+
+            margin-bottom: 18px;
+        }
+
+        .info-label {
+            font-size: 13px;
+
+            color: #555;
+
+            font-weight: 600;
+
+            margin-bottom: 8px;
+        }
+
+        .date-input {
+            border: 1px solid #d1d5db;
+
+            padding: 9px 11px;
+
+            font-size: 13px;
+
+            color: #333;
+
+            background: white;
+        }
+
+        .date-input:focus {
+            outline: none;
+
+            border-color: #6b7280;
+        }
+
+
+        /* =========================
+           ATTENDANCE TABLE
+        ========================= */
+
+        .attendance-list {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            overflow-x: auto;
+        }
+
+        .attendance-header {
+            display: grid;
+
+            grid-template-columns: 80px 1fr 210px;
+
+            padding: 13px 20px;
+
+            background: #f8f9fa;
+
+            border-bottom: 1px solid #ddd;
+
+            color: #555;
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+        .student-row {
+            display: grid;
+
+            grid-template-columns: 80px 1fr 210px;
+
+            align-items: center;
+
+            min-height: 58px;
+
+            padding: 10px 20px;
+
+            border-bottom: 1px solid #eee;
+        }
+
+        .student-row:last-child {
+            border-bottom: none;
+        }
+
+        .student-row:hover {
+            background: #fafafa;
+        }
+
+        .student-id {
+            font-size: 13px;
+
+            color: #777;
+        }
+
+        .student-name {
+            font-size: 14px;
+
+            color: #333;
+
+            font-weight: 500;
+        }
+
+
+        /* =========================
+           STATUS
+        ========================= */
+
+        .status-container {
+            display: flex;
+
+            align-items: center;
+
+            gap: 20px;
+        }
+
+        .status-option {
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            font-size: 13px;
+
+            cursor: pointer;
+        }
+
+        .status-option input {
+            cursor: pointer;
+        }
+
+        .present {
+            color: #166534;
+        }
+
+        .absent {
+            color: #b91c1c;
+        }
+
+
+        /* =========================
+           SUBMIT
+        ========================= */
+
+        .submit-section {
+            display: flex;
+
+            justify-content: flex-end;
+
+            margin-top: 18px;
+        }
+
+        .submit-btn {
+            background: #1f2937;
+
+            color: white;
+
+            border: none;
+
+            padding: 10px 20px;
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #111827;
+        }
+
+
+        /* =========================
+           NO STUDENTS
+        ========================= */
+
+        .no-students {
+            background: white;
+
+            border: 1px solid #e5e7eb;
+
+            padding: 40px;
+
+            text-align: center;
+
+            color: #777;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            text-align: center;
+
+            color: #999;
+
+            font-size: 12px;
+
+            padding: 10px 0 25px;
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .navbar {
+                padding: 0 18px;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .container {
+                width: 92%;
+            }
+
+            .attendance-header,
+            .student-row {
+                grid-template-columns: 60px 1fr 180px;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .page-header {
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 12px;
+            }
+
+            .page-title h1 {
+                font-size: 22px;
+            }
+
+            .attendance-header,
+            .student-row {
+                grid-template-columns: 55px 1fr 165px;
+            }
+
+            .status-container {
+                gap: 10px;
+            }
+
+        }
+
+    </style>
 
 </head>
 
+
 <body>
 
-<nav style="display:flex">
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="navbar">
 
     <div class="logo">
-        Aadhyana
+        Aadhyana <span>Admin</span>
     </div>
 
-    <ul style="display:flex; gap:40px">
+
+    <ul class="nav-links">
 
         <li>
             <a href="<%= application.getContextPath() %>/">
@@ -258,11 +457,28 @@ h2 {
 
 </nav>
 
+
+<!-- =========================
+     MAIN CONTENT
+========================= -->
+
 <div class="container">
+
+
+    <!-- PAGE HEADER -->
 
     <div class="page-header">
 
-        <h2>Take Attendance</h2>
+        <div class="page-title">
+
+            <h1>Take Attendance</h1>
+
+            <p>
+                Mark attendance for students in this batch.
+            </p>
+
+        </div>
+
 
         <a class="back-link"
            href="<%= application.getContextPath() %>/batch">
@@ -273,38 +489,59 @@ h2 {
 
     </div>
 
+
     <%
+
         List<Student> students =
             (List<Student>) request.getAttribute("students");
 
         Integer batchId =
             (Integer) request.getAttribute("batchId");
+
     %>
+
 
     <% if (students == null || students.isEmpty()) { %>
 
+
+        <!-- NO STUDENTS -->
+
         <div class="no-students">
+
             No students found in this batch.
+
         </div>
+
 
     <% } else { %>
 
+
+        <!-- =========================
+             ATTENDANCE FORM
+        ========================= -->
+
         <form method="post"
               action="<%= application.getContextPath() %>/attendance/submit">
+
+
+            <!-- DATE -->
 
             <input type="hidden"
                    name="batchId"
                    value="<%= batchId %>">
 
+
             <input type="hidden"
                    name="attendanceDate"
                    id="hiddenAttendanceDate">
+
 
             <div class="attendance-info">
 
                 <div class="info-label">
                     Attendance Date
                 </div>
+
 
                 <input
                     type="date"
@@ -314,7 +551,13 @@ h2 {
 
             </div>
 
+
+            <!-- STUDENT LIST -->
+
             <div class="attendance-list">
+
+
+                <!-- HEADER -->
 
                 <div class="attendance-header">
 
@@ -332,19 +575,31 @@ h2 {
 
                 </div>
 
+
+                <!-- STUDENTS -->
+
                 <% for (Student student : students) { %>
+
 
                     <div class="student-row">
 
+
                         <div class="student-id">
+
                             <%= student.getId() %>
+
                         </div>
+
 
                         <div class="student-name">
+
                             <%= student.getName() %>
+
                         </div>
 
+
                         <div class="status-container">
+
 
                             <label class="status-option present">
 
@@ -358,6 +613,7 @@ h2 {
 
                             </label>
 
+
                             <label class="status-option absent">
 
                                 <input
@@ -370,13 +626,20 @@ h2 {
 
                             </label>
 
+
                         </div>
+
 
                     </div>
 
+
                 <% } %>
 
+
             </div>
+
+
+            <!-- SUBMIT -->
 
             <div class="submit-section">
 
@@ -391,39 +654,62 @@ h2 {
 
             </div>
 
+
         </form>
+
 
     <% } %>
 
+
 </div>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<div class="footer">
+
+    Aadhyana Institute Administration System
+
+</div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
 
 <script>
 
-const today = new Date();
+    const today = new Date();
 
-const year = today.getFullYear();
+    const year = today.getFullYear();
 
-const month =
-    String(today.getMonth() + 1).padStart(2, '0');
+    const month =
+        String(today.getMonth() + 1).padStart(2, '0');
 
-const day =
-    String(today.getDate()).padStart(2, '0');
+    const day =
+        String(today.getDate()).padStart(2, '0');
 
-const formattedDate =
-    year + '-' + month + '-' + day;
+    const formattedDate =
+        year + '-' + month + '-' + day;
 
-document.getElementById("attendanceDate").value =
-    formattedDate;
 
-function setAttendanceDate() {
+    document.getElementById("attendanceDate").value =
+        formattedDate;
 
-    document.getElementById("hiddenAttendanceDate").value =
-        document.getElementById("attendanceDate").value;
 
-}
+    function setAttendanceDate() {
+
+        document.getElementById("hiddenAttendanceDate").value =
+            document.getElementById("attendanceDate").value;
+
+    }
 
 </script>
 
+
 </body>
+
 </html>
 

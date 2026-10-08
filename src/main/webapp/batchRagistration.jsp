@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
+
 <html>
+
 <head>
 
 <meta charset="UTF-8">
+
 <title>Aadhyana - Register Batch</title>
 
 <style>
@@ -14,43 +17,45 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
     }
 
     body {
-        background: #f5f7fb;
+        background: #f4f5f7;
         min-height: 100vh;
-        color: #222;
+        color: #1f2937;
     }
 
-    
-
     /* Main container */
+
     .main-container {
         width: 100%;
         display: flex;
         justify-content: center;
-        padding: 50px 20px;
+        padding: 40px 20px;
     }
 
     /* Form card */
+
     .form-card {
         width: 520px;
         background: #ffffff;
-        padding: 35px 40px;
-        border-radius: 12px;
+        padding: 30px 35px;
+        border-radius: 6px;
         border: 1px solid #e5e7eb;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
     }
 
     .form-header {
-        margin-bottom: 30px;
+        margin-bottom: 25px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid #e5e7eb;
     }
 
     .form-header h2 {
-        font-size: 26px;
-        color: #111827;
-        margin-bottom: 7px;
+        font-size: 24px;
+        color: #1f2937;
+        margin-bottom: 6px;
+        font-weight: 700;
     }
 
     .form-header p {
@@ -59,13 +64,14 @@
     }
 
     /* Form fields */
+
     .form-group {
-        margin-bottom: 20px;
+        margin-bottom: 18px;
     }
 
     .form-group label {
         display: block;
-        margin-bottom: 8px;
+        margin-bottom: 7px;
         font-size: 14px;
         font-weight: 600;
         color: #374151;
@@ -74,15 +80,15 @@
     .form-group input,
     .form-group select {
         width: 100%;
-        height: 44px;
-        padding: 0 13px;
+        height: 42px;
+        padding: 0 12px;
         border: 1px solid #d1d5db;
-        border-radius: 7px;
+        border-radius: 5px;
         background: #ffffff;
         color: #111827;
         font-size: 14px;
         outline: none;
-        transition: 0.2s;
+        transition: border-color 0.2s ease;
     }
 
     .form-group input::placeholder {
@@ -91,8 +97,7 @@
 
     .form-group input:focus,
     .form-group select:focus {
-        border-color: #2563eb;
-        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+        border-color: #1f2937;
     }
 
     .form-group select {
@@ -100,22 +105,23 @@
     }
 
     /* Button */
+
     .submit-btn {
         width: 100%;
-        height: 45px;
+        height: 43px;
         margin-top: 5px;
         border: none;
-        border-radius: 7px;
-        background: #2563eb;
-        color: white;
-        font-size: 15px;
+        border-radius: 5px;
+        background: #1f2937;
+        color: #ffffff;
+        font-size: 14px;
         font-weight: 600;
         cursor: pointer;
-        transition: 0.2s;
+        transition: background-color 0.2s ease;
     }
 
     .submit-btn:hover {
-        background: #1d4ed8;
+        background: #111827;
     }
 
     .submit-btn:active {
@@ -123,6 +129,7 @@
     }
 
     /* Mobile */
+
     @media (max-width: 600px) {
 
         nav {
@@ -145,148 +152,139 @@
 
 <body>
 
-
-
-
-
 <!-- Main Content -->
 
 <div class="main-container">
 
-    <div class="form-card">
+```
+<div class="form-card">
 
-        <div class="form-header">
+    <div class="form-header">
 
-            <h2>Register Batch</h2>
+        <h2>Register Batch</h2>
 
-            <p>
-                Add a new batch to Aadhyana
-            </p>
+        <p>
+            Add a new batch to Aadhyana
+        </p>
+
+    </div>
+
+    <form action="<%=application.getContextPath()%>/batch/ragister"
+          method="post">
+
+        <!-- Batch ID -->
+
+        <div class="form-group">
+
+            <label for="bId">
+                Batch ID
+            </label>
+
+            <input
+                type="number"
+                id="bId"
+                name="bId"
+                placeholder="Enter batch ID"
+                required>
 
         </div>
 
+        <!-- Batch Name -->
 
-        <form action="<%=application.getContextPath()%>/batch/ragister"
-              method="post">
+        <div class="form-group">
 
+            <label for="bName">
+                Batch Name
+            </label>
 
-            <!-- Batch ID -->
+            <input
+                type="text"
+                id="bName"
+                name="bName"
+                placeholder="Enter batch name"
+                required>
 
-            <div class="form-group">
+        </div>
 
-                <label for="bId">
-                    Batch ID
-                </label>
+        <!-- Start Date -->
 
-                <input
-                    type="number"
-                    id="bId"
-                    name="bId"
-                    placeholder="Enter batch ID"
-                    required>
+        <div class="form-group">
 
-            </div>
+            <label for="bStartDate">
+                Start Date
+            </label>
 
+            <input
+                type="date"
+                id="bStartDate"
+                name="bStartDate"
+                required>
 
-            <!-- Batch Name -->
+        </div>
 
-            <div class="form-group">
+        <!-- Teacher ID -->
 
-                <label for="bName">
-                    Batch Name
-                </label>
+        <div class="form-group">
 
-                <input
-                    type="text"
-                    id="bName"
-                    name="bName"
-                    placeholder="Enter batch name"
-                    required>
+            <label for="tId">
+                Teacher ID
+            </label>
 
-            </div>
+            <input
+                type="number"
+                id="tId"
+                name="tId"
+                placeholder="Enter teacher ID"
+                required>
 
+        </div>
 
-            <!-- Start Date -->
+        <!-- Batch Status -->
 
-            <div class="form-group">
+        <div class="form-group">
 
-                <label for="bStartDate">
-                    Start Date
-                </label>
+            <label for="bStatus">
+                Batch Status
+            </label>
 
-                <input
-                    type="date"
-                    id="bStartDate"
-                    name="bStartDate"
-                    required>
+            <select
+                id="bStatus"
+                name="bStatus"
+                required>
 
-            </div>
+                <option value="">
+                    -- Select Status --
+                </option>
 
+                <option value="ACTIVE">
+                    ACTIVE
+                </option>
 
-            <!-- Teacher ID -->
+                <option value="DEACTIVE">
+                    DEACTIVE
+                </option>
 
-            <div class="form-group">
+            </select>
 
-                <label for="tId">
-                    Teacher ID
-                </label>
+        </div>
 
-                <input
-                    type="number"
-                    id="tId"
-                    name="tId"
-                    placeholder="Enter teacher ID"
-                    required>
+        <!-- Submit -->
 
-            </div>
+        <button
+            type="submit"
+            class="submit-btn">
 
+            Register Batch
 
-            <!-- Batch Status -->
+        </button>
 
-            <div class="form-group">
-
-                <label for="bStatus">
-                    Batch Status
-                </label>
-
-                <select
-                    id="bStatus"
-                    name="bStatus"
-                    required>
-
-                    <option value="">
-                        -- Select Status --
-                    </option>
-
-                    <option value="ACTIVE">
-                        ACTIVE
-                    </option>
-
-                    <option value="DEACTIVE">
-                        DEACTIVE
-                    </option>
-
-                </select>
-
-            </div>
-
-
-            <!-- Submit -->
-
-            <button
-                type="submit"
-                class="submit-btn">
-
-                Register Batch
-
-            </button>
-
-        </form>
-
-    </div>
+    </form>
 
 </div>
 
 
+</div>
+
 </body>
+
 </html>

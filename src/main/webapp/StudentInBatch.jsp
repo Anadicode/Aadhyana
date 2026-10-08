@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 
 <html>
+
 <head>
 
 <meta charset="UTF-8">
@@ -23,8 +24,8 @@
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
-    background: linear-gradient(135deg, #f4f6f8 0%, #e8ecf1 100%);
-    color: #222;
+    background-color: #f4f5f7;
+    color: #1f2937;
     min-height: 100vh;
 }
 
@@ -33,6 +34,7 @@ nav {
     padding: 14px 30px;
     align-items: center;
     justify-content: space-between;
+    border-bottom: 1px solid #374151;
 }
 
 .logo {
@@ -61,7 +63,7 @@ nav ul li a:hover {
 
 .container {
     max-width: 1000px;
-    margin: 40px auto;
+    margin: 30px auto;
     padding: 0 20px;
 }
 
@@ -69,69 +71,67 @@ nav ul li a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
 h2 {
     margin: 0;
     color: #1f2937;
-    font-size: 26px;
-    font-weight: 700;
+    font-size: 22px;
+    font-weight: 600;
 }
 
 .back-link {
     text-decoration: none;
-    color: #2563eb;
+    color: #ffffff;
     font-weight: 600;
     font-size: 14px;
-    background: none;
+    background-color: #1f2937;
     border: none;
+    border-radius: 5px;
+    padding: 9px 14px;
     cursor: pointer;
+    transition: background-color 0.2s ease;
 }
 
 .back-link:hover {
-    text-decoration: underline;
+    background-color: #111827;
+    text-decoration: none;
 }
 
 .student-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
+    gap: 16px;
 }
 
 .student-card {
     background-color: #ffffff;
-    border-radius: 14px;
+    border-radius: 6px;
     padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    border: 1px solid #eef0f3;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.student-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
 }
 
 .student-name {
     font-size: 18px;
-    font-weight: 700;
+    font-weight: 600;
     color: #1f2937;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
 }
 
 .student-id {
-    font-size: 12px;
-    color: #9ca3af;
+    font-size: 13px;
+    color: #6b7280;
     margin-bottom: 14px;
 }
 
 .student-detail {
     display: flex;
     justify-content: space-between;
+    gap: 15px;
     font-size: 13px;
-    padding: 6px 0;
-    border-bottom: 1px solid #f3f4f6;
+    padding: 8px 0;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 .student-detail:last-child {
@@ -139,23 +139,24 @@ h2 {
 }
 
 .detail-label {
-    color: #9ca3af;
+    color: #6b7280;
     font-weight: 600;
 }
 
 .detail-value {
     color: #374151;
     text-align: right;
+    word-break: break-word;
 }
 
 .no-students {
-    padding: 40px;
+    padding: 30px;
     text-align: center;
     color: #6b7280;
     font-style: italic;
     background-color: #ffffff;
-    border-radius: 14px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
 }
 
 </style>
@@ -165,8 +166,10 @@ h2 {
 <body>
 
 <%
+
     List<Student> students =
         (List<Student>) request.getAttribute("students");
+
 %>
 
 <nav style="display: flex">
@@ -213,13 +216,16 @@ h2 {
         <h2>Students in Batch</h2>
 
         <% 
+
             /*
              * Only access students.get(0)
              * when the list actually contains a student.
              */
+
             if (students != null && !students.isEmpty()) {
 
                 Student st = students.get(0);
+
         %>
 
             <form method="post"
@@ -230,13 +236,17 @@ h2 {
                        value="<%= st.getB_id() %>">
 
                 <button type="submit" class="back-link">
+
                     &larr; Take Attendance for this Batch
+
                 </button>
 
             </form>
 
         <%
+
             }
+
         %>
 
     </div>
@@ -245,7 +255,9 @@ h2 {
     <% if (students == null || students.isEmpty()) { %>
 
         <div class="no-students">
+
             No students found in this batch.
+
         </div>
 
     <% } else { %>
@@ -258,22 +270,30 @@ h2 {
                 <div class="student-card">
 
                     <div class="student-name">
+
                         <%= e.getName() %>
+
                     </div>
 
                     <div class="student-id">
+
                         ID: <%= e.getId() %>
+
                     </div>
 
 
                     <div class="student-detail">
 
                         <span class="detail-label">
+
                             Phone
+
                         </span>
 
                         <span class="detail-value">
+
                             <%= e.getPhNumber() %>
+
                         </span>
 
                     </div>
@@ -282,11 +302,15 @@ h2 {
                     <div class="student-detail">
 
                         <span class="detail-label">
+
                             Age
+
                         </span>
 
                         <span class="detail-value">
+
                             <%= e.getAge() %>
+
                         </span>
 
                     </div>
@@ -295,11 +319,15 @@ h2 {
                     <div class="student-detail">
 
                         <span class="detail-label">
+
                             Email
+
                         </span>
 
                         <span class="detail-value">
+
                             <%= e.getEmailString() %>
+
                         </span>
 
                     </div>
@@ -308,11 +336,15 @@ h2 {
                     <div class="student-detail">
 
                         <span class="detail-label">
+
                             Address
+
                         </span>
 
                         <span class="detail-value">
+
                             <%= e.getAddressString() %>
+
                         </span>
 
                     </div>
@@ -321,11 +353,15 @@ h2 {
                     <div class="student-detail">
 
                         <span class="detail-label">
+
                             College
+
                         </span>
 
                         <span class="detail-value">
+
                             <%= e.getCollageNameString() %>
+
                         </span>
 
                     </div>
@@ -334,11 +370,15 @@ h2 {
                     <div class="student-detail">
 
                         <span class="detail-label">
+
                             Stream
+
                         </span>
 
                         <span class="detail-value">
+
                             <%= e.getStreamString() %>
+
                         </span>
 
                     </div>
@@ -354,4 +394,6 @@ h2 {
 </div>
 
 </body>
+
 </html>
+
