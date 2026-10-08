@@ -105,6 +105,91 @@ public class StudentDAO {
     }
     
     
+    
+    // finding all the active student 
+    public List<Student> findAllActiveStudents() {
+
+        List<Student> students = new ArrayList<>();
+
+        String query = """
+        		 SELECT S.ST_ID ,S.NAME
+             FROM student S
+             LEFT JOIN BATCH B
+                 ON S.B_ID = B.B_ID
+             WHERE B.B_STATUS = 'ACTIVE';
+        		""";
+
+        try {
+        	
+            Connection con = DBconnection.getDBConnection();
+             
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Student student = new Student(
+                        rs.getInt("ST_ID"),
+                        rs.getString("NAME")
+                );
+
+                students.add(student);
+            }
+
+        } catch (Exception e) {
+
+            System.out.println("Error: " + e);
+
+        }
+
+        return students;
+    }
+    
+    
+    
+ // finding all the Inactive student 
+    public List<Student> findAllInActiveStudents() {
+
+        List<Student> students = new ArrayList<>();
+
+        String query = """
+        		 SELECT S.ST_ID ,S.NAME
+             FROM student S
+             LEFT JOIN BATCH B
+                 ON S.B_ID = B.B_ID
+             WHERE B.B_STATUS = 'DEACTIVE';
+        		""";
+
+        try {
+        	
+            Connection con = DBconnection.getDBConnection();
+             
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+
+                Student student = new Student(
+                        rs.getInt("ST_ID"),
+                        rs.getString("NAME")
+                );
+
+                students.add(student);
+            }
+
+        } catch (Exception e) {
+
+            System.out.println("Error: " + e);
+
+        }
+
+        return students;
+    }
+    
+    
+    
     // registerting a stdent
     public void registerStudent(Student student) {
 

@@ -110,7 +110,7 @@
 </nav>
 
 <div class="hero">
-    <h1>Hello, Servlet by Anirban</h1>
+    
     <p>Welcome to Aadhyana — manage your batches and students in one place.</p>
     
     <form action="<%= application.getContextPath() %>/import-fees"

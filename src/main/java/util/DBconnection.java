@@ -11,7 +11,6 @@ public class DBconnection {
   
   public static Connection getDBConnection() throws Exception {
 	    Class.forName("com.mysql.cj.jdbc.Driver");
-	    System.out.println("hi");
 	    return DriverManager.getConnection(urlString,user,password);
   }
 }

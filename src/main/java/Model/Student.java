@@ -19,7 +19,11 @@ public class Student {
 	
    }
 
+   public Student(int id, String name) {	
+		this.id = id;
+		this.name = name;
 
+	   }
 
    public Student(int id, String name, String phNumber, String addressString, int age, String emailString,
 		String collageNameString, String streamString, int t_id, int sub_id,int B_id) {

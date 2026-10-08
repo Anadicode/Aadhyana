@@ -9,8 +9,15 @@ public class studentService {
    private StudentDAO  studentDAO = new StudentDAO();
    
    public List<Student> getAllStudents(){
-	  
 	   return studentDAO.findAllStudents();
+   }
+   
+   public List<Student> getAllActiveStudents(){
+	   return studentDAO.findAllActiveStudents();
+   }
+   
+   public List<Student> getAllInActiveStudents(){
+	   return studentDAO.findAllInActiveStudents();
    }
    
    public void deleteAstudentById(int id) {
