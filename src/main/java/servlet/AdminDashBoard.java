@@ -45,7 +45,11 @@ public class AdminDashBoard extends HttpServlet {
 		 System.out.println(batches.size());
 		 
 		 
-		 
+		 request.setAttribute("activeStudents", activeStudents);
+	     request.setAttribute("deactiveStudents", deactiveStudents);
+	     request.setAttribute("allStudents", allStudents);
+	     request.setAttribute("teachers", teachers);
+	     request.setAttribute("batches", batches);
 		 
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/AdminDashBoard.jsp");
