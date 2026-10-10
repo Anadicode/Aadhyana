@@ -230,13 +230,17 @@
         <li><a href="<%= application.getContextPath() %>/batch">Batch</a></li>
 
         <li><a href="<%= application.getContextPath() %>/student">Student</a></li>
-
+        
         <li><a href="<%= application.getContextPath() %>/about">About</a></li>
-
+     
     </ul>
 
 </nav>
 
+<% 
+   String role = (String)session.getAttribute("role");
+   if("admin".equals(role)){
+%>
 <nav class="sub" style="display:flex">
 
     <ul style="display:flex; gap:40px">
@@ -250,6 +254,8 @@
     </ul>
 
 </nav>
+
+<%} %>>
 
 <div class="container">
 
@@ -291,9 +297,10 @@
                     <th>Address</th>
 
                     <th>ID</th>
-
+                    
+                    <% if("admin".equals(role)){ %>
                     <th>Action</th>
-
+                    <%} %>
                 </tr>
 
             </thead>
@@ -309,9 +316,11 @@
                     <td><%= e.getAddressString() %></td>
 
                     <td class="student-id"><%= e.getId() %></td>
-
+                    
+                    
+                    
+                 <% if("admin".equals(role)){%>
                     <td class="action-cell">
-
                         <a
                             class="edit-btn"
                             href="<%= application.getContextPath() %>/student/edit?id=<%= e.getId() %>">
@@ -336,7 +345,8 @@
                         </form>
 
                     </td>
-
+                 <%} %>
+                   
                 </tr>
 
                 <% } %>

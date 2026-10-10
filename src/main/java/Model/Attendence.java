@@ -8,6 +8,8 @@ public class Attendence {
    private int ST_ID;
    private String status;
    
+   
+   
    // Getters
    public Date getAttendeprivatence_date() {
 	return attendeprivatence_date;

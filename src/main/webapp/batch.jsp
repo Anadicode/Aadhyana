@@ -204,17 +204,19 @@ pageEncoding="UTF-8"%>
 
 </nav>
 
-<nav class="sub" style="display:flex">
 
+<% String role = (String)session.getAttribute("role");
+   if("admin".equals(role)){
+%>
+<nav class="sub" style="display:flex">
 <ul style="display:flex; gap:40px">
 
-
-<li><a href="<%= application.getContextPath() %>/batch/ragister">Register a New Batch</a></li>
-
+       <li><a href="<%= application.getContextPath() %>/batch/ragister">Register a New Batch</a></li>
 
 </ul>
 
 </nav>
+<% }%>
 
 <div class="container">
 
@@ -274,15 +276,15 @@ List<Batch> batchs =
             <span class="<%= badgeClass %>"><%= status %></span>
 
         </div>
-
+        
+      <% if("admin".equals(role)){ %>
         <form action="<%= application.getContextPath() %>/batch" method="post" style="margin:0;">
-
             <input type="hidden" name="change" value="<%= e.getBId() %>">
-
             <input type="submit" class="status-btn" value="Change Status">
-
         </form>
-
+      <%} %>
+      
+      
         <form action="<%= application.getContextPath() %>/batch/batchStudent" method="post" style="margin:0;">
 
             <input type="hidden" name="batchId" value="<%= e.getBId() %>">

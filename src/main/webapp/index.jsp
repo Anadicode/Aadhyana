@@ -147,10 +147,15 @@ pageEncoding="UTF-8"%>
 
 <div class="hero">
 
-```
 <p>Welcome to Aadhyana — manage your batches and students in one place.</p>
 
-<form action="<%= application.getContextPath() %>/import-fees"
+<% 
+  String role = (String) session.getAttribute("role");
+
+  if("admin".equals(role)){ 
+  
+  %>
+ <form action="<%= application.getContextPath() %>/import-fees"
     method="post"
     enctype="multipart/form-data">
 
@@ -159,8 +164,8 @@ pageEncoding="UTF-8"%>
    <button type="submit">Import Fees</button>
 
 </form>
-```
 
+<%} %>
 </div>
 
 </body>

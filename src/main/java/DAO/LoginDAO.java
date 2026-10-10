@@ -31,6 +31,7 @@ public class LoginDAO {
 			if(rs.next()) {
 				user.setUserId(rs.getString("userId"));
 				user.setPasswordString(rs.getString("password"));
+				user.setRole(rs.getString("role"));
 				
 				return user;
 			}
