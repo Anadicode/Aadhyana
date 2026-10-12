@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="java.util.List,Model.Student,Model.Teacher,Model.Batch" %>
@@ -223,6 +224,7 @@ tr:last-child td {
 }
 
 .action {
+    display: block;
     text-decoration: none;
     text-align: center;
     padding: 13px 8px;
@@ -231,11 +233,58 @@ tr:last-child td {
     color: #444;
     font-size: 13px;
     background: #fafafa;
+    transition: background 0.2s, border-color 0.2s;
 }
 
 .action:hover {
     background: #f0f1f2;
     border-color: #bbb;
+}
+
+/* Fee Import Form */
+.fee-import-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #fafafa;
+}
+
+.fee-import-form label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.fee-import-form input[type="file"] {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding: 9px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: white;
+    font-size: 12px;
+}
+
+.fee-import-button {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 6px;
+    background: #1f2937;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.fee-import-button:hover {
+    background: #374151;
 }
 
 .note {
@@ -313,7 +362,6 @@ tr:last-child td {
     </div>
 
     <!-- STATISTICS -->
-
     <div class="stats">
 
         <div class="stat-card">
@@ -342,8 +390,7 @@ tr:last-child td {
 
     </div>
 
-    <!-- INSTITUTE OVERVIEW -->
-
+    <!-- INSTITUTE OVERVIEW AND QUICK ACTIONS -->
     <div class="two-column">
 
         <div class="section">
@@ -424,7 +471,29 @@ tr:last-child td {
 
             </div>
 
-            <p class="note" style="margin-top:14px">
+            <!-- IMPORT FEES FROM EXCEL -->
+            <form action="<%= application.getContextPath() %>/import-fees"
+                  method="post"
+                  enctype="multipart/form-data"
+                  class="fee-import-form">
+
+                <label for="feeFile">
+                    Import Student Fees (.xlsx)
+                </label>
+
+                <input type="file"
+                       id="feeFile"
+                       name="feeFile"
+                       accept=".xlsx"
+                       required>
+
+                <button type="submit" class="fee-import-button">
+                    Import Fees
+                </button>
+
+            </form>
+
+            <p class="note" style="margin-top: 14px;">
                 Fee totals, attendance rates, and recent activity are not
                 available because the current dashboard servlet does not
                 retrieve those metrics.
@@ -435,7 +504,6 @@ tr:last-child td {
     </div>
 
     <!-- BATCH OVERVIEW -->
-
     <div class="section">
 
         <div class="section-header">
@@ -444,7 +512,6 @@ tr:last-child td {
         </div>
 
         <div class="table-container">
-
             <table>
                 <thead>
                     <tr>
@@ -458,53 +525,62 @@ tr:last-child td {
                 </thead>
 
                 <tbody>
-
                 <%
                     if (batches == null || batches.isEmpty()) {
                 %>
-
                     <tr>
                         <td colspan="6" class="empty">
                             No batch records found.
                         </td>
                     </tr>
-
                 <%
                     } else {
                         int row = 1;
 
                         for (Batch batch : batches) {
                 %>
-
                     <tr>
                         <td><%= row++ %></td>
                         <td><%= batch.getBId() %></td>
-                        <td><%= batch.getBName() == null ? "-" : batch.getBName() %></td>
-                        <td><%= batch.getBStartDate() == null ? "-" : batch.getBStartDate() %></td>
+
+                        <td>
+                            <%= batch.getBName() == null
+                                ? "-" : batch.getBName() %>
+                        </td>
+
+                        <td>
+                            <%= batch.getBStartDate() == null
+                                ? "-" : batch.getBStartDate() %>
+                        </td>
+
                         <td><%= batch.getTId() %></td>
 
                         <td>
-                            <span class="pill <%= "ACTIVE".equalsIgnoreCase(batch.getBStatus()) ? "active" : ("INACTIVE".equalsIgnoreCase(batch.getBStatus()) ? "inactive" : "") %>">
-                                <%= batch.getBStatus() == null ? "Unknown" : batch.getBStatus() %>
+                            <span class="pill <%= 
+                                "ACTIVE".equalsIgnoreCase(batch.getBStatus())
+                                ? "active"
+                                : ("INACTIVE".equalsIgnoreCase(batch.getBStatus())
+                                    ? "inactive" : "")
+                            %>">
+                                <%= batch.getBStatus() == null
+                                    ? "Unknown" : batch.getBStatus() %>
                             </span>
                         </td>
                     </tr>
-
                 <%
                         }
                     }
                 %>
-
                 </tbody>
             </table>
-
         </div>
+
     </div>
 
-    <!-- TEACHER DIRECTORY -->
-
+    <!-- TEACHER AND STUDENT DIRECTORIES -->
     <div class="two-column">
 
+        <!-- TEACHER DIRECTORY -->
         <div class="section">
 
             <div class="section-header">
@@ -513,7 +589,6 @@ tr:last-child td {
             </div>
 
             <div class="table-container">
-
                 <table>
                     <thead>
                         <tr>
@@ -525,44 +600,42 @@ tr:last-child td {
                     </thead>
 
                     <tbody>
-
                     <%
                         if (teachers == null || teachers.isEmpty()) {
                     %>
-
                         <tr>
                             <td colspan="4" class="empty">
                                 No teacher records found.
                             </td>
                         </tr>
-
                     <%
                         } else {
                             int row = 1;
 
                             for (Teacher teacher : teachers) {
                     %>
-
                         <tr>
                             <td><%= row++ %></td>
                             <td><%= teacher.getTeacherId() %></td>
-                            <td><%= teacher.getTeacherName() == null ? "-" : teacher.getTeacherName() %></td>
+
+                            <td>
+                                <%= teacher.getTeacherName() == null
+                                    ? "-" : teacher.getTeacherName() %>
+                            </td>
+
                             <td><%= teacher.getSubjectId() %></td>
                         </tr>
-
                     <%
                             }
                         }
                     %>
-
                     </tbody>
                 </table>
-
             </div>
+
         </div>
 
         <!-- STUDENT DIRECTORY -->
-
         <div class="section">
 
             <div class="section-header">
@@ -571,7 +644,6 @@ tr:last-child td {
             </div>
 
             <div class="table-container">
-
                 <table>
                     <thead>
                         <tr>
@@ -583,17 +655,14 @@ tr:last-child td {
                     </thead>
 
                     <tbody>
-
                     <%
                         if (allStudents == null || allStudents.isEmpty()) {
                     %>
-
                         <tr>
                             <td colspan="4" class="empty">
                                 No student records found.
                             </td>
                         </tr>
-
                     <%
                         } else {
                             int limit = Math.min(allStudents.size(), 10);
@@ -601,32 +670,38 @@ tr:last-child td {
                             for (int i = 0; i < limit; i++) {
                                 Student student = allStudents.get(i);
                     %>
-
                         <tr>
                             <td><%= student.getId() %></td>
-                            <td><%= student.getName() == null ? "-" : student.getName() %></td>
-                            <td><%= student.getStreamString() == null ? "-" : student.getStreamString() %></td>
+
+                            <td>
+                                <%= student.getName() == null
+                                    ? "-" : student.getName() %>
+                            </td>
+
+                            <td>
+                                <%= student.getStreamString() == null
+                                    ? "-" : student.getStreamString() %>
+                            </td>
+
                             <td><%= student.getB_id() %></td>
                         </tr>
-
                     <%
                             }
                         }
                     %>
-
                     </tbody>
                 </table>
 
                 <% if (studentCount > 10) { %>
-
-                    <p class="note" style="margin-top:10px">
-                        Showing the first 10 students of <%= studentCount %>.
+                    <p class="note" style="margin-top: 10px;">
+                        Showing the first 10 students of
+                        <%= studentCount %>.
                         Open Students to view the full list.
                     </p>
-
                 <% } %>
 
             </div>
+
         </div>
 
     </div>

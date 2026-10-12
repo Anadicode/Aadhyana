@@ -121,7 +121,16 @@ pageEncoding="UTF-8"%>
     <li><a href="<%= application.getContextPath() %>/batch">Batch</a></li>
 
     <li><a href="<%= application.getContextPath() %>/student">Student</a></li>
-
+    
+    <% 
+    
+     String role = (String)session.getAttribute("role");
+     
+     if("admin".equals(role)){
+    %>
+      <li><a href="<%= application.getContextPath() %>/AdminDashBoard">AdminDshboard</a></li>
+    <% }%>
+    
     <li><a href="<%= application.getContextPath() %>/about">About</a></li>
 
     <%
@@ -149,23 +158,6 @@ pageEncoding="UTF-8"%>
 
 <p>Welcome to Aadhyana — manage your batches and students in one place.</p>
 
-<% 
-  String role = (String) session.getAttribute("role");
-
-  if("admin".equals(role)){ 
-  
-  %>
- <form action="<%= application.getContextPath() %>/import-fees"
-    method="post"
-    enctype="multipart/form-data">
-
-   <input type="file" name="feeFile" accept=".xlsx" required>
-
-   <button type="submit">Import Fees</button>
-
-</form>
-
-<%} %>
 </div>
 
 </body>
